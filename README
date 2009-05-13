@@ -1,0 +1,15 @@
+time-warp runs a process with a time offset by intercepting system calls to gettimeofday. Handy for testing/debugging, avoiding stupid restrictions in software, etc.
+
+To compile:
+gcc -dynamiclib -o time-interpose.dylib time-interpose.c
+
+Examples:
+./time-warp -o +1M cal => Calendar for a month hence
+./time-warp -o -12d 'date +%s' => Unix timestamp for this time 12 days ago 
+./time-warp -s 0 date => 'Thu  1 Jan 1970 01:00:00'
+./time-warp -o -2w /Applications/iCal.app/Contents/MacOS/iCal => iCal, thinking it's two weeks ago
+
+Offset syntax [+-]N[smhdM], for seconds, minutes, days, hours, days, months respectively.
+
+Author: patrick@collison.ie
+Released into public domain
